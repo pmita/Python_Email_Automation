@@ -1,6 +1,6 @@
-_import pandas as pd
+import pandas as pd
 import smtplib
-from email.mime.email_body import MIMEText
+from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 #Enter your credentials
