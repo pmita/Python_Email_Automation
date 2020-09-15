@@ -1,17 +1,20 @@
-import pandas as pd
+_import pandas as pd
 import smtplib
 from email.mime.email_body import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 #Enter your credentials
-your_email = 'winautomation.example@gmail.com'
-your_password = 'Mmita1995@'
+your_email = 'enter_your_email_here@gmail.com'
+your_password = 'enter_your_password_here'
 smtp_protocol = 'smtp.gmail.com' # This is unique as per email service of your choice
 
 #Initiate SMTP connection to your email service. You can google these if unsure
-server = smtplib.SMTP_SSL(smtp_protocol, 465)
-server.ehlo()
-server.login(your_email, your_password)
+try:
+    server = smtplib.SMTP_SSL(smtp_protocol, 465)
+    server.ehlo()
+    server.login(your_email, your_password)
+except:
+    print("We couldn't connect to your email")
 
 #Access excel detaisl with pandas and introduce new classes to store all data.
 email_list = pd.read_excel('C:/Users/pmita/Desktop/Python/Email/drafts/list_of_customers.xlsx')
@@ -42,8 +45,11 @@ for email_index in range(len(emails)):
     email_body = msg.as_string()
 
     #Send the combined email
-    server.sendmail(your_email, [email], email_body)
-    print("Email was sent to %s \n" % name)
+    try:
+        server.sendmail(your_email, [email], email_body)
+        print("Email was sent to %s \n" % name)
+   except:
+        print("Something went wrong ... Email not sent")
 
 #Shut down the connection with the server once finished
 server.close()
